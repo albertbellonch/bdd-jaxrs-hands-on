@@ -1,5 +1,8 @@
 package server
 
+import org.eclipse.jetty.server.Server
+
 object Runner extends App {
-    println("Hello, scala coders")
+  val server = new Server(8080)
+  server.start()
 }
