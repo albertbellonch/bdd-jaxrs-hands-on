@@ -8,12 +8,16 @@ class RestStepsDefinitions extends ScalaDsl with EN with ShouldMatchers {
 
   var lastResponse: Response = Response(200, Map(), "")
 
-  When("""^I (\w+) (.+)$"""){ (method: String, uri: String) =>
+  When("""^I (GET|POST|PUT|DELETE) (.+)$"""){ (method: String, uri: String) =>
     lastResponse = Http.send(method, uri)
   }
 
   Then("""^the response status is a (\d+)$"""){ (expectedStatus: Int) =>
     lastResponse.status should be(expectedStatus)
+  }
+
+  Then("""^I receive a JSON message$"""){ (entity: String) =>
+    lastResponse.body should be(entity)
   }
 
 }
